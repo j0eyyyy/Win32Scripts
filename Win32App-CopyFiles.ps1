@@ -1,5 +1,5 @@
-$LogFile = "C:\Windows\Temp\ViaMonstraTools_Install.log"
-$TargetFolder = "C:\Tools"
+$LogFile = "C:\Windows\Temp\CopyFiless_Install.log"
+$TargetFolder = ""
 $SourceFolder = $PSScriptRoot
 
 # Delete any existing logfile if it exists
@@ -16,7 +16,7 @@ Function Write-Log{
     Add-Content -Value $Line -Path $LogFile -Encoding Ascii
 }
 
-Write-Log "Starting the ViaMonstra Lab Tools installer"
+Write-Log "Starting the copyfolder installer"
 
 # Make sure target folder exists
 If (!(Test-Path $TargetFolder)){ 
@@ -24,10 +24,10 @@ If (!(Test-Path $TargetFolder)){
     New-Item -Path $TargetFolder -ItemType Directory -Force
 }
 
-# Copy the tools
+# Copy the folder
 Write-Log "About to copy contents from $SourceFolder to $TargetFolder"
 try {
-    Copy-Item -Path "$SourceFolder\*" -Destination $TargetFolder -Recurse -Force -ErrorAction Stop
+    Copy-Item -Path "$SourceFolder\*" -Destination $TargetFolder -Recurse -Force -Exclude *.ps1 -ErrorAction Stop 
     Write-Log "Contents of $SourceFolder successfully copied to $TargetFolder"
 } 
 catch {
